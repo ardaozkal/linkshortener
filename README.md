@@ -8,4 +8,4 @@ The differences between two is simple. Folder branch is being updated and defaul
 
 The only big problem with folder is that it creates both a file and folder, making the size per shortened link a bit more. (about 33 bytes, which causes about 1kb more usage than default branch after about 35 shortenings.)
 
-After you decide which one you'll use, download it and copy the files over to your php server. Replace "test" (of htmlspecialchars($touse["pass"]) == "test") in admin.php (and adminpost.php on default branch) with the password you want- leaving test as your password might cause problems.
+After you decide which one you'll use, just download it and copy the files over to your php server. Replace "test" in admin.php (in $password) with the password you want- leaving test as your password will disable the admin panel.
