@@ -22,6 +22,12 @@ else if ($usepost)
     $touse = $_POST;
 }
 
+if ($password == "test")
+{
+    echo "You can't use admin panel until you change the password. Open the admin.php to do it.";
+    exit();
+}
+
 if (!empty(htmlspecialchars($touse["link"])))
 {
 if (htmlspecialchars($touse["pass"]) == $password)
