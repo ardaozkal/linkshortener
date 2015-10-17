@@ -1,17 +1,41 @@
 <?php
-$alias = htmlspecialchars($_GET["alias"]);
+$useget = !empty($_GET);
+$usepost = !empty($_POST);
+$password = "test";
 
-if (!empty(htmlspecialchars($_GET["link"])))
+if ($useget == FALSE && $usepost == FALSE)
 {
-if (htmlspecialchars($_GET["pass"]) == "test")
+    echo "You didn't use get nor post. I bet you'd use get, tip: pass, link and alias (alias is optional)";
+    exit();
+}
+else if ($useget == TRUE && $usepost == TRUE)
 {
-    if (empty($alias))
+    echo "Both GET and POST recieved, fail.";
+    exit();
+}
+else if ($useget)
+{
+    $touse = $_GET;
+}
+else if ($usepost)
+{
+    $touse = $_POST;
+}
+
+if (!empty(htmlspecialchars($touse["link"])))
+{
+if (htmlspecialchars($touse["pass"]) == $password)
+{
+    if (!in_array("alias", $touse) || empty(htmlspecialchars($touse["alias"])))
     {
-        while (!file_exists($alias))
-        {
-            $alias = generateRandomString(3);
-        }
+        $alias = generateRandomString(3);
     }
+    else
+    {
+        $alias = htmlspecialchars($touse["alias"]);
+    }
+    
+    $alias = str_replace(array(".", ",", "/", "\\", "?", ":", "*", "\"", "<", ">", "|"), "", $alias); //escapes stuff thay shouldn't be used. dot is to cover our app from being abused if our admin pass gets stolen, comma is just in case, rest are actually banned to be used in file names
     
     $myfile = fopen($alias, "w") or die("error");
     if ($myfile == "error")
@@ -20,14 +44,14 @@ if (htmlspecialchars($_GET["pass"]) == "test")
     }
     else
     {
-        fwrite($myfile, htmlspecialchars($_GET["link"]));
+        fwrite($myfile, htmlspecialchars($touse["link"]));
         fclose($myfile);
         echo "Created, alias is " . "<a href=\"index.php?a=" . $alias . "\">" . $alias . "</a>";
     }
 }
 else
 {
-    echo "<img src=\"wrongpass.png\" alt=\"nice hack bro.\" style=\"width:507px;height:264px;\">"; //put your own pic here. I use a simple pic saying nice hack bro, leave me alone
+    echo "<img src=\"http://oi62.tinypic.com/8yhxtu.jpg\" alt=\"nice hack bro.\" style=\"width:507px;height:264px;\">";
 }
 }
 else
