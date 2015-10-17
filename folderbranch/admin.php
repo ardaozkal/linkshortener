@@ -1,17 +1,40 @@
 <?php
-$alias = htmlspecialchars($_GET["alias"]);
+$useget = !empty($_GET);
+$usepost = !empty($_POST);
 
-if (!empty(htmlspecialchars($_GET["link"])))
+if ($useget == FALSE && $usepost == FALSE)
 {
-if (htmlspecialchars($_GET["pass"]) == "test")
+    echo "You didn't use get nor post. I bet you'd use get, tip: pass, link and alias (alias is optional)";
+    exit();
+}
+else if ($useget == TRUE && $usepost == TRUE)
 {
-    if (empty($alias))
+    echo "Both GET and POST recieved, fail.";
+    exit();
+}
+else if ($useget)
+{
+    $touse = $_GET;
+}
+else if ($usepost)
+{
+    $touse = $_POST;
+}
+
+if (!empty(htmlspecialchars($touse["link"])))
+{
+if (htmlspecialchars($touse["pass"]) == "test")
+{
+    if (!in_array("alias", $touse) || empty(htmlspecialchars($touse["alias"])))
     {
-        while (!file_exists("./" . $alias . "/"))
-        {
-            $alias = generateRandomString(3);
-        }
+        $alias = generateRandomString(3);
     }
+    else
+    {
+        $alias = htmlspecialchars($touse["alias"]);
+    }
+    
+    $alias = str_replace(array(".", ",", "/", "\\", "?", ":", "*", "\"", "<", ">", "|"), "", $alias); //escapes stuff thay shouldn't be used. dot is to cover our app from being abused if our admin pass gets stolen, comma is just in case, rest are actually banned to be used in file names
     
     if (!file_exists($alias)) {
     mkdir($alias, 0777, true);
@@ -24,7 +47,7 @@ if (htmlspecialchars($_GET["pass"]) == "test")
     }
     else
     {
-        fwrite($myfile, "<?php header(\"Location: " . htmlspecialchars($_GET["link"]) . "\"); ?>");
+        fwrite($myfile, "<?php header(\"Location: " . htmlspecialchars($touse["link"]) . "\"); ?>");
         fclose($myfile);
         echo "Created, alias is " . "<a href=\"" . $alias . "/index.php\">" . $alias . "</a>";
     }
@@ -49,4 +72,4 @@ function generateRandomString($length = 10) {
     return $randomString;
 }
 
-?> 
+?>
