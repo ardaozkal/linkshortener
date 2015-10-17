@@ -1,6 +1,7 @@
 <?php
 $useget = !empty($_GET);
 $usepost = !empty($_POST);
+$password = "test";
 
 if ($useget == FALSE && $usepost == FALSE)
 {
@@ -21,9 +22,14 @@ else if ($usepost)
     $touse = $_POST;
 }
 
+if ($password == "test")
+{
+    echo "You can't use admin panel until you change the password. Open the admin.php to do it.";
+}
+
 if (!empty(htmlspecialchars($touse["link"])))
 {
-if (htmlspecialchars($touse["pass"]) == "test")
+if (htmlspecialchars($touse["pass"]) == $password)
 {
     if (!in_array("alias", $touse) || empty(htmlspecialchars($touse["alias"])))
     {
