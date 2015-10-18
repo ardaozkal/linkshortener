@@ -28,11 +28,9 @@ if ($password == "test")
     exit();
 }
 
-if (!empty(htmlspecialchars($touse["link"])))
-{
 if (htmlspecialchars($touse["pass"]) == $password)
 {
-    if (!in_array("alias", $touse) || empty(htmlspecialchars($touse["alias"])))
+    if (!array_key_exists("alias", $touse) || ($touse["alias"]) == "" || ($touse["alias"]) == " " || ($touse["alias"]) == "-")
     {
         $alias = generateRandomString(3);
     }
@@ -62,11 +60,6 @@ if (htmlspecialchars($touse["pass"]) == $password)
 else
 {
     echo "<img src=\"http://oi62.tinypic.com/8yhxtu.jpg\" alt=\"nice hack bro.\" style=\"width:507px;height:264px;\">";
-}
-}
-else
-{
-    echo "link is empty, use pass, link and alias (alias is optional)";
 }
 
 function generateRandomString($length = 10) {
