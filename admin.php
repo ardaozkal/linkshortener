@@ -10,7 +10,7 @@ if ($useget == FALSE && $usepost == FALSE)
 }
 else if ($useget == TRUE && $usepost == TRUE)
 {
-    echo "Both GET and POST recieved, fail.";
+    echo "Both GET and POST received, fail.";
     exit();
 }
 else if ($useget)
