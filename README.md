@@ -1,7 +1,19 @@
 # linkshortener
-Link shortener that doesn't need MySQL. The script of http://ardao.me/.
+Link shortener that doesn't need SQL.
 
-###How to install
+## Notice: Archived
+
+This project was followed by Elixire, which is an open source Image Uploading and Link Shortening software, written in Python 3. 
+
+This project is not indicative of my programming abilities, as it was hacked together quickly to just *work*.
+
+This is not a very secure script, it's not maintained, and you're recommended to use Elixire instead.
+
+[Elixire (code)](https://gitlab.com/elixire/elixire)
+
+[elixi.re (public instance)](https://elixi.re)
+
+### How to install
 Choose what you'll use. Will you use the folder branch or the default branch?
 
 The differences between two is simple. Folder branch is being updated and default branch is not. Default branch requires you to open a link like this: http://somerandomwebsitelink.com/shortlink.php?a=something or http://somerandomwebsitelink.com?a=something at best. The folder branch will work like this: http://ardao.me/github or http://somerandomwebsitelink.com/something.
